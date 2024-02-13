@@ -33,22 +33,22 @@ jobs:
     - name: Prepare artifacts
       env:
         GEOSERVER_VERSION: ${{ github.ref_name }}
-        AWS_ACCESS_KEY_ID: "aws_test_id"
-        AWS_SECRET_ACCESS_KEY: "aws_test_secret"
+        #AWS_ACCESS_KEY_ID: "aws_test_id"
+        #AWS_SECRET_ACCESS_KEY: "aws_test_secret"
         #AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         #AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
          chmod +x geoserver-geonode-ext/.github/workflows/artifacts.sh
          ./geoserver-geonode-ext/.github/workflows/artifacts.sh
       shell: bash
-    #- name: Upload artifacts to S3
-    #  uses: keithweaver/aws-s3-github-action@v1.0.0
-    #  with:
-    #    command: cp
-    #    source: ./local_file.txt
-    #    destination: s3://yourbucket/folder/local_file.txt
-    #    aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    #    aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    #    aws_region: us-east-1
+    - name: Upload artifacts to S3
+      uses: keithweaver/aws-s3-github-action@v1.0.0
+      with:
+        command: cp
+        source: ./geoserver/src/web/app/target/artifacts
+        destination: s3://artifacts.geonode.org/geoserver/test_${{ github.ref_name }}
+        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws_region: eu-south-1
     - name: Final message
-      run: echo "Build from branch ${{ github.ref_name }} completed"
+      run: echo "Build and push from branch ${{ github.ref_name }} completed"
