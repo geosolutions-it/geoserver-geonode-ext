@@ -10,20 +10,18 @@ mkdir artifacts
 mv geoserver.war geoserver_vanilla.war
 mkdir _tmp
 
-pushd _tmp # src/web/app/target/_tmp
+pushd _tmp
 unzip ../geoserver_vanilla.war
 
 
 cp -r ../geoserver-geonode-ext/data ./
-zip -r ../artfacts/geoserver.war ./
+zip -r ../artifacts/geoserver.war ./
 popd
 
 pushd geoserver-geonode-ext
 
-zip -r ../artfacts/geonode-geoserver-ext-web-app-data.zip data/
+zip -r ../artifacts/geonode-geoserver-ext-web-app-data.zip data/
 popd
 
 # Cleaning up
 rm -Rf _tmp/
-
-popd
