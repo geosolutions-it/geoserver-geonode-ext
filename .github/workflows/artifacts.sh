@@ -2,7 +2,7 @@
 
 la geoserver-geonode-ext
 
-cp -r geoserver-geonode-ext src/web/app/target/
+cp -r geoserver-geonode-ext geoserver/src/web/app/target/
 pushd geoserver/src/web/app/target/
 
 mkdir artifacts
